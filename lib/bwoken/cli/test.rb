@@ -123,10 +123,14 @@ BANNER
       end
 
       def select_formatter formatter_name
+        formatter_class = Bwoken.const_get "#{formatter_name.capitalize}Formatter" rescue nil
+        return formatter_class ? formatter_class.new : Bwoken::ColorfulFormatter.new
+=begin
         case formatter_name
         when 'passthru' then Bwoken::PassthruFormatter.new
         else Bwoken::ColorfulFormatter.new
         end
+=end
       end
 
       def use_simulator? want_forced_simulator
